@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Rick and Morty</string>
+
+    <!--API-->
+    <string name="loading_text">Loading…</string>
+    <string name="api_error_text">Ops…</string>
+    <string name="unexpected_api_error_text">ocorreu um erro inesperado.</string>
+
+</resources>
