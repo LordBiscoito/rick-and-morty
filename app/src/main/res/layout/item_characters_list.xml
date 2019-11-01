@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="7.5dp"
+    android:layout_marginRight="15dp"
+    android:layout_marginBottom="7.5dp"
+    android:background="@drawable/blue_stroke_with_white_background_container">
+
+
+    <ImageView
+        android:id="@+id/character_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:contentDescription="@string/character_image_content_description_text"
+        android:scaleType="centerCrop"
+        android:src="@drawable/rick_placeholder"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/character_name_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:text="Character Name"
+        app:layout_constraintTop_toBottomOf="@id/character_avatar" />
+
+    <TextView
+        android:id="@+id/character_gender_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:text="Character Gender"
+        app:layout_constraintTop_toBottomOf="@id/character_name_text" />
+
+    <TextView
+        android:id="@+id/character_status_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:text="Character Status"
+        app:layout_constraintTop_toBottomOf="@id/character_gender_text" />
+
+    <TextView
+        android:id="@+id/character_specie_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:text="Character Specie"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/character_status_text" />
+</androidx.constraintlayout.widget.ConstraintLayout>

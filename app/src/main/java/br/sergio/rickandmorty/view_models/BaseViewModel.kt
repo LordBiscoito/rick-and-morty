@@ -12,8 +12,4 @@ open class BaseViewModel : ViewModel() {
     val isLoading: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
-
-    val onThrowable: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
-    }
 }

@@ -6,4 +6,13 @@
     <string name="api_error_text">Ops…</string>
     <string name="unexpected_api_error_text">ocorreu um erro inesperado.</string>
 
+    <!--Generic-->
+    <string name="name_text">Name:</string>
+    <string name="gender_text">Gender:</string>
+    <string name="status_text">Status:</string>
+    <string name="specie_text">Specie:</string>
+
+    <!--Splash-->
+    <string name="splash_concrete_text">A pilot project for Concrete Solutions</string>
+    <string name="character_image_content_description_text">character image</string>
 </resources>
