@@ -1,6 +1,11 @@
 package br.sergio.rickandmorty.ui.activities.characters.ui
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +35,6 @@ class CharactersListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_list)
         init()
-        setViewModel()
     }
 
     override fun populateData() {
@@ -38,6 +42,12 @@ class CharactersListActivity : BaseActivity() {
     }
 
     private fun setViewModel() {
+        setCharacterListObservable()
+        setSearch()
+        addAPIObservables(charactersListViewModel)
+    }
+
+    private fun setCharacterListObservable() {
         charactersListViewModel.getCharactersMutable().observe(this, Observer {
             if (it == null) {
                 charactersListViewModel.hasStoppedPaging = true
@@ -68,7 +78,24 @@ class CharactersListActivity : BaseActivity() {
         })
 
         charactersListViewModel.fetchCharactersByPage()
-        addAPIObservables(charactersListViewModel)
+    }
+
+    private fun setSearch() {
+        charactersListViewModel.searchCharactersByName(search_edit_text)
+        setSearchObservable()
+    }
+
+    private fun setSearchObservable() {
+        charactersListViewModel.getSearchMutable().observe(this, Observer {
+            if (!::adapter.isInitialized) {
+                characterList = it
+                setRecyclerView()
+            } else {
+                characterList.clear()
+                characterList.addAll(it)
+                adapter.notifyDataSetChanged()
+            }
+        })
     }
 
     private fun setRecyclerView() {
