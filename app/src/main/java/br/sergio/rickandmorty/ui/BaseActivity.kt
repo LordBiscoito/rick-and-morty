@@ -5,10 +5,12 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import br.sergio.rickandmorty.APIUtils
 import br.sergio.rickandmorty.R
+import br.sergio.rickandmorty.di.component.DaggerAppComponent
 import br.sergio.rickandmorty.view_models.BaseViewModel
 import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog
+import dagger.android.support.DaggerAppCompatActivity
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : DaggerAppCompatActivity() {
     private lateinit var dialogProgress: SweetAlertDialog
 
     var isHomeActivity: Boolean = false

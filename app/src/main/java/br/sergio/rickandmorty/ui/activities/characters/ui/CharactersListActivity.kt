@@ -7,24 +7,30 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.sergio.rickandmorty.R
 import br.sergio.rickandmorty.Utils
 import br.sergio.rickandmorty.api.models.CharacterModel
-import br.sergio.rickandmorty.app.MyApplication
 import br.sergio.rickandmorty.ui.BaseActivity
 import br.sergio.rickandmorty.ui.activities.characters.ui.adapter.CharactersRecyclerAdapter
+import br.sergio.rickandmorty.ui.activities.characters.ui.view_model.CharacterListViewModelFactory
 import br.sergio.rickandmorty.ui.activities.characters.ui.view_model.CharactersListViewModel
 import kotlinx.android.synthetic.main.activity_character_list.*
+import javax.inject.Inject
 
 class CharactersListActivity : BaseActivity() {
     private var characterList: ArrayList<CharacterModel> = ArrayList()
     private lateinit var adapter: CharactersRecyclerAdapter
 
-    //view model
-    var charactersListViewModel: CharactersListViewModel =
-        MyApplication.fakeDaggerInjectionForCharactersListViewModel()
+    @Inject
+    lateinit var charactersListViewModelFactory: CharacterListViewModelFactory
+
+    private val charactersListViewModel: CharactersListViewModel by lazy {
+        ViewModelProviders.of(this, charactersListViewModelFactory)
+            .get(CharactersListViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_list)
         init()
+        setViewModel()
     }
 
     override fun populateData() {
@@ -61,8 +67,8 @@ class CharactersListActivity : BaseActivity() {
             }
         })
 
-        addAPIObservables(charactersListViewModel)
         charactersListViewModel.fetchCharactersByPage()
+        addAPIObservables(charactersListViewModel)
     }
 
     private fun setRecyclerView() {

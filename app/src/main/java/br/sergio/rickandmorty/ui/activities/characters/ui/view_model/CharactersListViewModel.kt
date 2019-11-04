@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
 
-class CharactersListViewModel(private var characterRepository: CharacterRepository) :
+class CharactersListViewModel (private var characterRepository: CharacterRepository) :
     BaseViewModel() {
 
     var hasStoppedPaging: Boolean = false
