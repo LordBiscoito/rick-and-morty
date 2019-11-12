@@ -25,6 +25,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
 }
 def rxJavaVersion = '2.0.1'
 def daggerVersion = "2.25.2"
@@ -40,7 +44,6 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.7.1'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
 
-
     //lifecycle
     implementation 'android.arch.lifecycle:extensions:1.1.1'
 
@@ -55,6 +58,7 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxandroid:$rxJavaVersion"
     implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    testImplementation 'com.github.Plastix.RxSchedulerRule:rx2:1.0.2'
 
     //dagger
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -62,9 +66,18 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
+    //Mockito
+    testImplementation 'org.mockito:mockito-core:2.28.2'
+    androidTestImplementation 'org.mockito:mockito-android:2.28.2'
+    testImplementation 'org.mockito:mockito-inline:2.28.2'
 
+    //android
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
+    testImplementation "android.arch.core:core-testing:1.1.1"
+    testImplementation 'io.kotlintest:kotlintest-runner-junit5:3.3.2'
 }
