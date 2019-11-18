@@ -40,7 +40,6 @@ class HomeViewModel(private var homeRepository: HomeRepository) :
             }).addTo(compositeDisposable)
     }
 
-
     override fun onCleared() {
         super.onCleared()
         compositeDisposable.clear()

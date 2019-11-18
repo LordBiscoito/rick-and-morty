@@ -20,11 +20,14 @@ object RxSearchObservable {
         editText.setOnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER) {
                 subject.onComplete()
+            } else if (keyCode == KeyEvent.KEYCODE_BACK){
+                editText.clearFocus()
             }
 
             true
         }
 
         return subject
+        //rx bindings
     }
 }

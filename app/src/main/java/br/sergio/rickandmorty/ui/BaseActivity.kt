@@ -48,7 +48,6 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     protected fun showProgress() {
         if (!::dialogProgress.isInitialized) initDialogProgress()
-
         if (!dialogProgress.isShowing()) dialogProgress.show()
     }
 

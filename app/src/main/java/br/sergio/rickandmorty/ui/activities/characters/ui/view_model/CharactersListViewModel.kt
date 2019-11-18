@@ -15,6 +15,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
 
 class CharactersListViewModel(private var characterRepository: CharacterRepository) :
@@ -22,7 +23,8 @@ class CharactersListViewModel(private var characterRepository: CharacterReposito
 
     var hasStoppedPaging: Boolean = false
     private var page: Int = 1
-    private var searchQuery: String = ""
+
+    var searchQuery: String = ""
 
     private val charactersMutableLiveData = MutableLiveData<ArrayList<CharacterModel>>()
     fun getCharactersMutable(): LiveData<ArrayList<CharacterModel>> = charactersMutableLiveData
@@ -56,17 +58,11 @@ class CharactersListViewModel(private var characterRepository: CharacterReposito
 
     fun searchCharactersByName(editText: EditText) {
         RxSearchObservable.fromView(editText).debounce(300, TimeUnit.MILLISECONDS)
-            .filter {
-                if (it.isBlank()) {
-                    searchQuery = ""
-                    false
-                }
-
-                searchQuery = it
-                true
-            }.distinctUntilChanged()
+            .distinctUntilChanged()
             .switchMap {
-                characterRepository.getCharactersByName(it).subscribeOn(Schedulers.io()).doOnError {
+                searchQuery = it
+
+                characterRepository.getCharactersByName(searchQuery).subscribeOn(Schedulers.io()).doOnError {
                     onError.postValue((it as HttpException).response())
                 }.onErrorReturn {
                     CharactersListModel(ArrayList())

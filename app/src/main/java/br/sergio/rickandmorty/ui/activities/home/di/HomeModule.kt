@@ -9,12 +9,12 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-class HomeModule() {
+open class HomeModule() {
     @Provides
-    fun providesHomeRepository(apiInterface: APIInterface) =
+    open fun providesHomeRepository(apiInterface: APIInterface) =
         HomeRepository(apiInterface)
 
     @Provides
-    fun providesHomeViewModelFactory(homeRepository: HomeRepository) =
+    open fun providesHomeViewModelFactory(homeRepository: HomeRepository) =
         HomeViewModelFactory(homeRepository)
 }

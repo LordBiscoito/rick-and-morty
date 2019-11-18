@@ -8,7 +8,6 @@ import br.sergio.rickandmorty.Utils
 import br.sergio.rickandmorty.api.models.CharacterModel
 import br.sergio.rickandmorty.ui.BaseActivity
 import br.sergio.rickandmorty.ui.activities.characters.ui.CharactersListActivity
-import br.sergio.rickandmorty.ui.activities.characters.ui.view_model.CharactersListViewModel
 import br.sergio.rickandmorty.ui.activities.home.view_model.HomeViewModel
 import br.sergio.rickandmorty.ui.activities.home.view_model.HomeViewModelFactory
 import com.bumptech.glide.Glide
