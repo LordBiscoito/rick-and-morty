@@ -30,6 +30,7 @@
 
         <activity
             android:name=".ui.activities.characters.ui.CharactersListActivity"
+            android:windowSoftInputMode="stateAlwaysHidden"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

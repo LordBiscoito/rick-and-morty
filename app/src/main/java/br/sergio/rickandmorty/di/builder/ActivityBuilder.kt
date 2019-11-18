@@ -17,5 +17,4 @@ internal abstract class ActivityBuilder {
     @PerActivity
     @ContributesAndroidInjector(modules = [HomeModule::class])
     internal abstract fun  homeActivityInjector(): HomeActivity
-
 }

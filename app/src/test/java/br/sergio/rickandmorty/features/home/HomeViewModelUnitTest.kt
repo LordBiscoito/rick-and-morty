@@ -1,4 +1,4 @@
-package br.sergio.rickandmorty.home
+package br.sergio.rickandmorty.features.home
 
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule

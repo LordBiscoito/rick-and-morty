@@ -1,4 +1,4 @@
-package br.sergio.rickandmorty.characters
+package br.sergio.rickandmorty.features.characters
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import br.sergio.rickandmorty.api.models.CharacterModel

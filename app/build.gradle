@@ -15,7 +15,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "br.sergio.rickandmorty.runner.MyApplicationRunner"
 
         buildConfigField "String", "BASE_URL", '"https://rickandmortyapi.com/"'
     }
@@ -80,4 +80,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
     testImplementation "android.arch.core:core-testing:1.1.1"
     testImplementation 'io.kotlintest:kotlintest-runner-junit5:3.3.2'
+    androidTestImplementation 'com.github.andrzejchm.RESTMock:android:0.4.1'
+    kaptAndroidTest "com.google.dagger:dagger-compiler:$daggerVersion"
 }
