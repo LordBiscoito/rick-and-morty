@@ -19,8 +19,7 @@ class CharacterListActivityInstrumentedTests {
     private val successResponseCode = 200
     private val characterUrlPath = "api/character"
 
-    @Rule
-    @JvmField
+    @get:Rule
     var mActivityTestRule = IntentsTestRule(CharactersListActivity::class.java, false, false)
 
     @Before

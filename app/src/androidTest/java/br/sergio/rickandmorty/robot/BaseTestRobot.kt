@@ -1,5 +1,8 @@
 package br.sergio.rickandmorty.robot
 
+import android.app.Activity
+import android.app.Instrumentation
+import android.content.Intent
 import android.graphics.drawable.BitmapDrawable
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +13,14 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.intent.Intents
+import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import io.appflate.restmock.MatchableCall
+import io.appflate.restmock.RESTMockServer
+import io.appflate.restmock.utils.RequestMatchers
+import org.hamcrest.CoreMatchers
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
@@ -27,9 +36,10 @@ open class BaseTestRobot() {
             ViewActions.closeSoftKeyboard()
         )
 
+    fun getViewInteraction(resId: Int): ViewInteraction = onView(withId(resId))
+
     fun clickButton(resId: Int): ViewInteraction =
         onView((withId(resId))).perform(ViewActions.click())
-
 
     fun drawableIsCorrect(@DrawableRes drawableResId: Int): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
@@ -54,6 +64,23 @@ open class BaseTestRobot() {
             }
         }
     }
+
+    fun setRESTMockServerWhenGet(
+        characterUrlPath: String,
+        responseCode: Int,
+        filePath: String
+    ): MatchableCall =
+        RESTMockServer.whenGET(RequestMatchers.pathContains(characterUrlPath))
+            .thenReturnFile(responseCode, filePath)
+
+    fun setIntendingRespondWith(packageName: String) {
+        val intentResult = Instrumentation.ActivityResult(Activity.RESULT_OK, Intent())
+        Intents.intending(IntentMatchers.toPackage(packageName))
+            .respondWith(intentResult)
+    }
+
+    fun checkIntentsIntended(packageName: String) =
+        Intents.intended(CoreMatchers.allOf(IntentMatchers.hasComponent(packageName)))
 
     fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int
