@@ -26,7 +26,6 @@ class HomeRobot : BaseTestRobot() {
     fun setCharactersListActivityIntending() =
         setIntendingRespondWith(CharactersListActivity::class.java.name)
 
-
     fun checkIfPlaceholderWasSetOnFeaturedCharacterAvatar(): ViewInteraction =
         getViewInteraction(R.id.character_avatar).check(
             ViewAssertions.matches(

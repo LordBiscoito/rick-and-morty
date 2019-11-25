@@ -26,22 +26,22 @@ import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
 open class BaseTestRobot() {
-    fun matchText(viewInteraction: ViewInteraction, text: String): ViewInteraction =
+    protected fun matchText(viewInteraction: ViewInteraction, text: String): ViewInteraction =
         viewInteraction
             .check(ViewAssertions.matches(ViewMatchers.withText(text)))
 
-    fun typeTextOnEditText(resId: Int, text: String): ViewInteraction =
+    protected fun typeTextOnEditText(resId: Int, text: String): ViewInteraction =
         onView(withId(resId)).perform(
             ViewActions.replaceText(text),
             ViewActions.closeSoftKeyboard()
         )
 
-    fun getViewInteraction(resId: Int): ViewInteraction = onView(withId(resId))
+    protected fun getViewInteraction(resId: Int): ViewInteraction = onView(withId(resId))
 
-    fun clickButton(resId: Int): ViewInteraction =
+    protected fun clickButton(resId: Int): ViewInteraction =
         onView((withId(resId))).perform(ViewActions.click())
 
-    fun drawableIsCorrect(@DrawableRes drawableResId: Int): Matcher<View> {
+    protected fun drawableIsCorrect(@DrawableRes drawableResId: Int): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("with drawable from resource id: ")
@@ -65,7 +65,7 @@ open class BaseTestRobot() {
         }
     }
 
-    fun setRESTMockServerWhenGet(
+    protected fun setRESTMockServerWhenGet(
         characterUrlPath: String,
         responseCode: Int,
         filePath: String
@@ -73,16 +73,16 @@ open class BaseTestRobot() {
         RESTMockServer.whenGET(RequestMatchers.pathContains(characterUrlPath))
             .thenReturnFile(responseCode, filePath)
 
-    fun setIntendingRespondWith(packageName: String) {
+    protected fun setIntendingRespondWith(packageName: String) {
         val intentResult = Instrumentation.ActivityResult(Activity.RESULT_OK, Intent())
         Intents.intending(IntentMatchers.toPackage(packageName))
             .respondWith(intentResult)
     }
 
-    fun checkIntentsIntended(packageName: String) =
+    protected fun checkIntentsIntended(packageName: String) =
         Intents.intended(CoreMatchers.allOf(IntentMatchers.hasComponent(packageName)))
 
-    fun childAtPosition(
+    protected fun childAtPosition(
         parentMatcher: Matcher<View>, position: Int
     ): Matcher<View> {
 
