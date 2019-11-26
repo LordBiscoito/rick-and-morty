@@ -10,6 +10,7 @@ import com.google.gson.reflect.TypeToken
 import io.github.plastix.rxschedulerrule.RxSchedulerRule
 import io.kotlintest.shouldBe
 import io.reactivex.Single
+import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.ResponseBody
 import org.junit.Before
@@ -39,7 +40,8 @@ class CharacterListViewModelUnitTest {
 
     @Before
     fun setUp() {
-        characterListViewModel = CharactersListViewModel(mockCharacterRepository)
+        characterListViewModel =
+            CharactersListViewModel(mockCharacterRepository, Schedulers.io(), Schedulers.io())
     }
 
     @Test

@@ -2,15 +2,20 @@ package br.sergio.rickandmorty.api
 
 import br.sergio.rickandmorty.APIInterface
 import br.sergio.rickandmorty.BuildConfig
+import br.sergio.rickandmorty.app.Constants.CHARACTER_REPOSITORY_SCHEDULER
+import br.sergio.rickandmorty.app.Constants.DEBOUNCE_SCHEDULER
 import br.sergio.rickandmorty.app.MyApplication
 import dagger.Module
 import dagger.Provides
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 import okhttp3.Cache
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -62,4 +67,12 @@ object RetrofitModule {
     @Provides
     fun providesRxCallAdapterFactory(): RxJava2CallAdapterFactory =
         RxJava2CallAdapterFactory.create()
+
+    @Provides
+    @Named(DEBOUNCE_SCHEDULER)
+    fun provideScheduler(): Scheduler = Schedulers.computation()
+
+    @Provides
+    @Named(CHARACTER_REPOSITORY_SCHEDULER)
+    fun provideSchedulerAsync(): Scheduler = Schedulers.io()
 }

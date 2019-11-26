@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.sergio.rickandmorty.api.models.CharacterModel
 import br.sergio.rickandmorty.api.models.CharactersListModel
+import br.sergio.rickandmorty.app.Constants.DEBOUNCE_DELAY_TIME
 import br.sergio.rickandmorty.ui.activities.characters.repository.CharacterRepository
 import br.sergio.rickandmorty.utils.RxSearchObservable
 import br.sergio.rickandmorty.view_models.BaseViewModel
+import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.addTo
@@ -15,10 +17,13 @@ import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 
-class CharactersListViewModel(private var characterRepository: CharacterRepository) :
+class CharactersListViewModel(
+    private var characterRepository: CharacterRepository,
+    private val debounceScheduler: Scheduler,
+    private val characterRepositoryScheduler: Scheduler
+) :
     BaseViewModel() {
 
     var hasStoppedPaging: Boolean = false
@@ -57,18 +62,20 @@ class CharactersListViewModel(private var characterRepository: CharacterReposito
     }
 
     fun searchCharactersByName(editText: EditText) {
-        RxSearchObservable.fromView(editText).debounce(300, TimeUnit.MILLISECONDS)
+        RxSearchObservable.fromView(editText)
+            .debounce(DEBOUNCE_DELAY_TIME, TimeUnit.MILLISECONDS, debounceScheduler)
             .distinctUntilChanged()
             .switchMap {
                 searchQuery = it
 
-                characterRepository.getCharactersByName(searchQuery).subscribeOn(Schedulers.io()).doOnError {
-                    onError.postValue((it as HttpException).response())
-                }.onErrorReturn {
-                    CharactersListModel(ArrayList())
-                }
+                characterRepository.getCharactersByName(searchQuery)
+                    .subscribeOn(characterRepositoryScheduler)
+                    .doOnError {
+                        onError.postValue((it as HttpException).response())
+                    }.onErrorReturn {
+                        CharactersListModel(ArrayList())
+                    }
             }.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 page = 1
                 hasStoppedPaging = false
