@@ -48,12 +48,9 @@ class CharacterListActivityInstrumentedTests {
     fun characterListSecondPageItemShouldBeAquaMorty() {
         val app =
             InstrumentationRegistry.getInstrumentation().targetContext.applicationContext as MyApplicationTest
-
         app.component.inject(this)
 
-
         characterList {
-
             setRESTMockToReturnCharacterListFirstPageWithSuccess()
             mActivityTestRule.launchActivity(Intent())
             RESTMockServer.reset()

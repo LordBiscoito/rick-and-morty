@@ -24,8 +24,7 @@ class SplashActivity : AppCompatActivity() {
         )
     }
 
-    fun showMainScreen() {
-
+    private fun showMainScreen() {
         val intent = Intent(this, HomeActivity::class.java)
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
