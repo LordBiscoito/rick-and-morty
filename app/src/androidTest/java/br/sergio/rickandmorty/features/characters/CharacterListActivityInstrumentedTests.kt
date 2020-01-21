@@ -44,6 +44,7 @@ class CharacterListActivityInstrumentedTests {
         }
 
         //added text here
+        //added other text
     }
 
     @Test
