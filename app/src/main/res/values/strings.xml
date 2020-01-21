@@ -15,4 +15,8 @@
     <!--Splash-->
     <string name="splash_concrete_text">A pilot project for Concrete Solutions</string>
     <string name="character_image_content_description_text">character image</string>
+
+    <!--Espresso Idling Resource Sample-->
+    <string name="text_will_change_in_1_second">This text will change in 1 second</string>
+    <string name="text_was_changed">Text was changed!</string>
 </resources>

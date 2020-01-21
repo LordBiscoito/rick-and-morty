@@ -10,6 +10,7 @@ import br.sergio.rickandmorty.ui.BaseActivity
 import br.sergio.rickandmorty.ui.activities.characters.ui.CharactersListActivity
 import br.sergio.rickandmorty.ui.activities.home.view_model.HomeViewModel
 import br.sergio.rickandmorty.ui.activities.home.view_model.HomeViewModelFactory
+import br.sergio.rickandmorty.ui.activities.samples.SimpleEspressoIdlingResourceSampleActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.activity_home.*
@@ -17,7 +18,7 @@ import javax.inject.Inject
 
 class HomeActivity : BaseActivity() {
     @Inject
-    lateinit var  homeViewModelFactory: HomeViewModelFactory
+    lateinit var homeViewModelFactory: HomeViewModelFactory
 
     private val homeViewModel: HomeViewModel by lazy {
         ViewModelProviders.of(this, homeViewModelFactory)
@@ -36,6 +37,13 @@ class HomeActivity : BaseActivity() {
     override fun setActions() {
         characters_button.setOnClickListener {
             Utils.sendToActivity(this, CharactersListActivity::class.java)
+        }
+
+        espresso_idling_resource_Button.setOnClickListener {
+            Utils.sendToActivity(
+                this,
+                SimpleEspressoIdlingResourceSampleActivity::class.java
+            )
         }
     }
 
