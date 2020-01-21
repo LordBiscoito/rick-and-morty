@@ -42,6 +42,8 @@ class CharacterListActivityInstrumentedTests {
             mActivityTestRule.launchActivity(Intent())
             checkCharacterNameText(0, "Name: Rick Sanchez")
         }
+
+        //added text here
     }
 
     @Test
