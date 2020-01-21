@@ -43,8 +43,6 @@ class CharacterListActivityInstrumentedTests {
             checkCharacterNameText(0, "Name: Rick Sanchez")
         }
 
-        //added text here
-        //added other text
     }
 
     @Test
